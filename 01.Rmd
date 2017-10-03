@@ -19,18 +19,25 @@ library(caret);library(kernlab);data(spam) # importação das libs
 ```
 
 ```{r}
+# Divisão normal
 inTrain <- createDataPartition(y=spam$type,
                                p=0.75, list = FALSE)
 training <- spam[inTrain,]
 testing <- spam[-inTrain,]
+dim(spam)
 dim(training)
 ```
 ```{r}
-# Cross validation k-fold
+# Divisão com Cross validation k-fold
 set.seed(32323)
 folds <- createFolds(y=spam$type, k=10,
                      list=TRUE,returnTrain=TRUE)
+# returnTrain = TRUE retorna folds de Treino (maior parte)
+# returnTrain = TRUE retorna folds de Teste (menor parte)
 sapply(folds, length)
 
+```
+```{r}
+folds[[1]][1:10]
 ```
 

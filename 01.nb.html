@@ -192,23 +192,32 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5UcmFpbiA8LSBjcmVhdGVEYXRhUGFydGl0aW9uKHk9c3BhbSR0eXBlLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHA9MC43NSwgbGlzdCA9IEZBTFNFKVxudHJhaW5pbmcgPC0gc3BhbVtpblRyYWluLF1cbnRlc3RpbmcgPC0gc3BhbVstaW5UcmFpbixdXG5kaW0odHJhaW5pbmcpXG5gYGAifQ== -->
-<pre class="r"><code>inTrain &lt;- createDataPartition(y=spam$type,
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBEaXZpc8OjbyBub3JtYWxcbmluVHJhaW4gPC0gY3JlYXRlRGF0YVBhcnRpdGlvbih5PXNwYW0kdHlwZSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwPTAuNzUsIGxpc3QgPSBGQUxTRSlcbnRyYWluaW5nIDwtIHNwYW1baW5UcmFpbixdXG50ZXN0aW5nIDwtIHNwYW1bLWluVHJhaW4sXVxuZGltKHNwYW0pXG5gYGAifQ== -->
+<pre class="r"><code># Divisão normal
+inTrain &lt;- createDataPartition(y=spam$type,
                                p=0.75, list = FALSE)
 training &lt;- spam[inTrain,]
 testing &lt;- spam[-inTrain,]
-dim(training)</code></pre>
+dim(spam)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDQ2MDEgICA1OFxuIn0= -->
+<pre><code>[1] 4601   58</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGltKHRyYWluaW5nKVxuYGBgIn0= -->
+<pre class="r"><code>dim(training)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM0NTEgICA1OFxuIn0= -->
 <pre><code>[1] 3451   58</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcm9zcyB2YWxpZGF0aW9uIGstZm9sZFxuc2V0LnNlZWQoMzIzMjMpXG5mb2xkcyA8LSBjcmVhdGVGb2xkcyh5PXNwYW0kdHlwZSwgaz0xMCxcbiAgICAgICAgICAgICAgICAgICAgIGxpc3Q9VFJVRSxyZXR1cm5UcmFpbj1UUlVFKVxuc2FwcGx5KGZvbGRzLCBsZW5ndGgpXG5gYGAifQ== -->
-<pre class="r"><code># Cross validation k-fold
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBEaXZpc8OjbyBjb20gQ3Jvc3MgdmFsaWRhdGlvbiBrLWZvbGRcbnNldC5zZWVkKDMyMzIzKVxuZm9sZHMgPC0gY3JlYXRlRm9sZHMoeT1zcGFtJHR5cGUsIGs9MTAsXG4gICAgICAgICAgICAgICAgICAgICBsaXN0PVRSVUUscmV0dXJuVHJhaW49VFJVRSlcbiMgcmV0dXJuVHJhaW4gPSBUUlVFIHJldG9ybmEgZm9sZHMgZGUgVHJlaW5vIChtYWlvciBwYXJ0ZSlcbiMgcmV0dXJuVHJhaW4gPSBUUlVFIHJldG9ybmEgZm9sZHMgZGUgVGVzdGUgKG1lbm9yIHBhcnRlKVxuc2FwcGx5KGZvbGRzLCBsZW5ndGgpXG5gYGAifQ== -->
+<pre class="r"><code># Divisão com Cross validation k-fold
 set.seed(32323)
 folds &lt;- createFolds(y=spam$type, k=10,
                      list=TRUE,returnTrain=TRUE)
+# returnTrain = TRUE retorna folds de Treino (maior parte)
+# returnTrain = TRUE retorna folds de Teste (menor parte)
 sapply(folds, length)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiRm9sZDAxIEZvbGQwMiBGb2xkMDMgRm9sZDA0IEZvbGQwNSBGb2xkMDYgRm9sZDA3IEZvbGQwOCBGb2xkMDkgRm9sZDEwIFxuICA0MTQxICAgNDE0MCAgIDQxNDEgICA0MTQyICAgNDE0MCAgIDQxNDIgICA0MTQxICAgNDE0MSAgIDQxNDAgICA0MTQxIFxuIn0= -->
@@ -216,10 +225,18 @@ sapply(folds, length)</code></pre>
   4141   4140   4141   4142   4140   4142   4141   4141   4140   4141 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9sZHNbWzFdXVsxOjEwXVxuYGBgIn0= -->
+<pre class="r"><code>folds[[1]][1:10]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSAgMSAgMiAgMyAgNCAgNSAgNiAgNyAgOCAgOSAxMFxuIn0= -->
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gCgpUcnkgZXhlY3V0aW5nIHRoaXMgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpSdW4qIGJ1dHRvbiB3aXRoaW4gdGhlIGNodW5rIG9yIGJ5IHBsYWNpbmcgeW91ciBjdXJzb3IgaW5zaWRlIGl0IGFuZCBwcmVzc2luZyAqQ3RybCtTaGlmdCtFbnRlciouIAoKYGBge3J9CnBsb3QoY2FycykKYGBgCgpBZGQgYSBuZXcgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpJbnNlcnQgQ2h1bmsqIGJ1dHRvbiBvbiB0aGUgdG9vbGJhciBvciBieSBwcmVzc2luZyAqQ3RybCtBbHQrSSouCgpXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlICpQcmV2aWV3KiBidXR0b24gb3IgcHJlc3MgKkN0cmwrU2hpZnQrSyogdG8gcHJldmlldyB0aGUgSFRNTCBmaWxlKS4KYGBge3J9CmxpYnJhcnkoY2FyZXQpO2xpYnJhcnkoa2VybmxhYik7ZGF0YShzcGFtKSAjIGltcG9ydGHDp8OjbyBkYXMgbGlicwpgYGAKCmBgYHtyfQppblRyYWluIDwtIGNyZWF0ZURhdGFQYXJ0aXRpb24oeT1zcGFtJHR5cGUsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwPTAuNzUsIGxpc3QgPSBGQUxTRSkKdHJhaW5pbmcgPC0gc3BhbVtpblRyYWluLF0KdGVzdGluZyA8LSBzcGFtWy1pblRyYWluLF0KZGltKHRyYWluaW5nKQpgYGAKYGBge3J9CiMgQ3Jvc3MgdmFsaWRhdGlvbiBrLWZvbGQKc2V0LnNlZWQoMzIzMjMpCmZvbGRzIDwtIGNyZWF0ZUZvbGRzKHk9c3BhbSR0eXBlLCBrPTEwLAogICAgICAgICAgICAgICAgICAgICBsaXN0PVRSVUUscmV0dXJuVHJhaW49VFJVRSkKc2FwcGx5KGZvbGRzLCBsZW5ndGgpCgpgYGAKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gCgpUcnkgZXhlY3V0aW5nIHRoaXMgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpSdW4qIGJ1dHRvbiB3aXRoaW4gdGhlIGNodW5rIG9yIGJ5IHBsYWNpbmcgeW91ciBjdXJzb3IgaW5zaWRlIGl0IGFuZCBwcmVzc2luZyAqQ3RybCtTaGlmdCtFbnRlciouIAoKYGBge3J9CnBsb3QoY2FycykKYGBgCgpBZGQgYSBuZXcgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpJbnNlcnQgQ2h1bmsqIGJ1dHRvbiBvbiB0aGUgdG9vbGJhciBvciBieSBwcmVzc2luZyAqQ3RybCtBbHQrSSouCgpXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlICpQcmV2aWV3KiBidXR0b24gb3IgcHJlc3MgKkN0cmwrU2hpZnQrSyogdG8gcHJldmlldyB0aGUgSFRNTCBmaWxlKS4KYGBge3J9CmxpYnJhcnkoY2FyZXQpO2xpYnJhcnkoa2VybmxhYik7ZGF0YShzcGFtKSAjIGltcG9ydGHDp8OjbyBkYXMgbGlicwpgYGAKCmBgYHtyfQojIERpdmlzw6NvIG5vcm1hbAppblRyYWluIDwtIGNyZWF0ZURhdGFQYXJ0aXRpb24oeT1zcGFtJHR5cGUsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwPTAuNzUsIGxpc3QgPSBGQUxTRSkKdHJhaW5pbmcgPC0gc3BhbVtpblRyYWluLF0KdGVzdGluZyA8LSBzcGFtWy1pblRyYWluLF0KZGltKHNwYW0pCmRpbSh0cmFpbmluZykKYGBgCmBgYHtyfQojIERpdmlzw6NvIGNvbSBDcm9zcyB2YWxpZGF0aW9uIGstZm9sZApzZXQuc2VlZCgzMjMyMykKZm9sZHMgPC0gY3JlYXRlRm9sZHMoeT1zcGFtJHR5cGUsIGs9MTAsCiAgICAgICAgICAgICAgICAgICAgIGxpc3Q9VFJVRSxyZXR1cm5UcmFpbj1UUlVFKQojIHJldHVyblRyYWluID0gVFJVRSByZXRvcm5hIGZvbGRzIGRlIFRyZWlubyAobWFpb3IgcGFydGUpCiMgcmV0dXJuVHJhaW4gPSBUUlVFIHJldG9ybmEgZm9sZHMgZGUgVGVzdGUgKG1lbm9yIHBhcnRlKQpzYXBwbHkoZm9sZHMsIGxlbmd0aCkKCmBgYApgYGB7cn0KZm9sZHNbWzFdXVsxOjEwXQpgYGAKCg==</div>
 
 
 

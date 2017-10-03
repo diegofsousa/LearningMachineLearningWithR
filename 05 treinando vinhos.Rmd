@@ -1,0 +1,54 @@
+# Treinando dataset "Wine"
+```{r}
+library(caret);library(ggplot2);library(RSNNS)
+```
+
+```{r}
+# importação do dataset
+dataurl <- "https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data"
+download.file(url = dataurl, destfile = "wine.data")
+wine_df <- read.csv("wine.data", header = FALSE)
+str(wine_df)
+```
+
+```{r}
+set.seed(3021)
+inTrain <- createDataPartition(y=wine_df$V1, p=0.7, list=FALSE)
+training <- wine_df[inTrain,]
+testing <- wine_df[-inTrain,]
+cat("Dimensão do dataframe: ", dim(wine_df),"\n")
+cat("Dimensão do treinamento: ", dim(training),"\n")
+cat("Dimensão do teste: ", dim(testing),"\n")
+```
+
+```{r}
+anyNA(wine_df)
+summary(wine_df)
+```
+
+```{r}
+training[["V1"]] = factor(training[["V1"]])
+```
+```{r}
+trctrl <- trainControl(method = "boot")
+set.seed(3333)
+knn_fit <- train(V1 ~., data = training, method = "knn",
+ trControl=trctrl,
+ preProcess = c("center", "scale"),
+ tuneLength = 10)
+```
+```{r}
+knn_fit
+```
+```{r}
+plot(knn_fit)
+```
+
+```{r}
+test_pred <- predict(knn_fit, newdata=testing)
+test_pred
+```
+```{r}
+confusionMatrix(test_pred, testing$V1 )  #check accuracy
+```
+
